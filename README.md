@@ -24,7 +24,9 @@ La aplicación `Literalura` permite:
 - Consultar Libros buscados.
 - Filtrar libros por idioma y contar la cantidad de libros disponibles en un idioma específico.
 - Consultar autores que estaban vivos en un rango de años especificado por el usuario.
-
+- Consultar el top 10 de libros más descargados
+- Consultar las distintas estadísticas en función de las descargas, desde el promedio, al libro menos y más descargado, y el total de descargas.
+- Consultar autores en base a su nombre que se encuentren almacenados en la base de datos.
 ## Requerimientos
 
 - **Java**: Versión 17 o superior
@@ -47,7 +49,9 @@ Al ejecutar la aplicación, se desplegará un menú de opciones en la consola. P
      - `buscarLibrosPorIdioma()`: Permite buscar libros en la base de datos por idioma específico.
      - `autoresVivosEnCiertaFecha()`: Consulta y muestra autores vivos en un rango de años especificado.
      - `contarLibrosDeUnDeterminadoIdioma()`: Cuenta y muestra el número de libros disponibles en un idioma específico.
-
+     - `buscarTop10Libros()`: Consulta el top 10 de libros más descargados.
+     - `estadisticasLibros()`: Consulta las estadisticas en base a las descargas de los libros.
+     - `buscarAutorPorNombre()`: Consulta mediante un nombre de autor si este se encuentra almacenado.
 ### 2. **ConsumoAPI**
    - **Función**: Realiza la solicitud HTTP a la API de Gutendex y recupera la información en formato JSON.
    - **Método Principal**:

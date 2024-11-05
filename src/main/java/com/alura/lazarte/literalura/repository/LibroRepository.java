@@ -10,4 +10,5 @@ import java.util.List;
 public interface LibroRepository extends JpaRepository<Libro, Long> {
     List<Libro> findByIdiomaContaining(String idioma);
     int countByIdioma(String idioma);
+    List<Libro> findTop10ByOrderByDescargasDesc();
 }

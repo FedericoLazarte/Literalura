@@ -6,7 +6,9 @@ import com.alura.lazarte.literalura.repository.LibroRepository;
 import com.alura.lazarte.literalura.service.ConsumoAPI;
 import com.alura.lazarte.literalura.service.ConvertirDatos;
 
+import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -51,6 +53,15 @@ public class Principal {
                 case 6:
                     contarLibrosDeUnDeterminadoIdioma();
                     break;
+                case 7:
+                    buscarTop10Libros();
+                    break;
+                case 8:
+                    estadisticasLibros();
+                    break;
+                case 9:
+                    buscarAutorPorNombre();
+                    break;
                 case 0:
                     System.out.println("Gracias por haber utilizado nuestro servicio");
                     System.exit(opcion);
@@ -69,6 +80,9 @@ public class Principal {
                 4 - Buscar libro por idioma
                 5 - Consultar autores vivos en el rango de ciertos años
                 6 - Buscar cantidad de libros en cierto idioma, por ejemplo (es - en - etc)
+                7 - Buscar top 10 descargas de libros
+                8 - Ver estadísticas de descargas
+                9 - Buscar Autor por nombre
                 0 - Salir
                 """);
     }
@@ -147,5 +161,32 @@ public class Principal {
             System.out.println("\nLa cantidad de libros que hay en el idioma especificado " + idioma + " es: " + cantidadLibrosEnCiertoIdioma);
         else
             System.out.println("\nNo se han encontrado libros en el idioma especificado");
+    }
+
+    private void buscarTop10Libros() {
+        List<Libro> top10Libros = libroRepository.findTop10ByOrderByDescargasDesc();
+        System.out.println("\n---------------- Top 10 Libros ----------------");
+        top10Libros.forEach(l -> System.out.println("\nNombre Libro: " + l.getTitulo() + "\nTotal de descargas: " + l.getDescargas()));
+    }
+
+    private void estadisticasLibros() {
+        libros = libroRepository.findAll();
+        IntSummaryStatistics estadisticas = libros.stream()
+                .mapToInt(Libro::getDescargas)
+                .summaryStatistics();
+        System.out.println("Descargas promedio: " + estadisticas.getAverage());
+        System.out.println("Descarga mínima: " + estadisticas.getMin());
+        System.out.println("Descarga máxima: " + estadisticas.getMax());
+        System.out.println("Total de descargas: " + estadisticas.getCount());
+    }
+
+    private void buscarAutorPorNombre() {
+        System.out.print("\nEscribe el nombre del autor que buscas: ");
+        String nombreAutor = teclado.nextLine();
+        Optional<Autor> autorBuscado = autorRepository.findByNombreContainsIgnoreCase(nombreAutor);
+        if(autorBuscado.isPresent())
+            System.out.println("\nAutor encontrado: " + autorBuscado.get());
+        else
+            System.out.println("\nAutor no encontrado");
     }
 }
