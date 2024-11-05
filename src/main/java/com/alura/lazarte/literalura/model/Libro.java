@@ -12,18 +12,19 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+   // @Column(unique = true)
     private String titulo;
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Autor> autores;
-    private List<String> idiomas;
+   // private List<String> idiomas;
+    private String idioma;
     private Integer descargas;
 
     public Libro() {}
 
     public Libro(DatosLibro datosLibro) {
         this.titulo = datosLibro.titulo();
-        this.idiomas = datosLibro.idiomas();
+        this.idioma = datosLibro.idiomas().get(0);
         this.descargas = datosLibro.descargas();
     }
 
@@ -48,35 +49,21 @@ public class Libro {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public List<String> getIdiomas() {
-        return idiomas;
-    }
-
-    public void setIdiomas(List<String> idiomas) {
-        this.idiomas = idiomas;
+    public String getIdiomas() {
+        return idioma;
     }
 
     public Integer getDescargas() {
         return descargas;
     }
 
-    public void setDescargas(Integer descargas) {
-        this.descargas = descargas;
-    }
-
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Libro{");
-        sb.append("id=").append(id);
-        sb.append(", titulo='").append(titulo).append('\'');
-        sb.append(", autores=").append(autores);
-        sb.append(", idiomas=").append(idiomas);
-        sb.append(", descargas=").append(descargas);
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder();
+        sb.append("\n----------------------- " + " Información Libro " + "----------------------")
+                .append("\n\t\tTítulo del libro: " + getTitulo())
+                .append("\n\t\tIdioma del libro: " + getIdiomas())
+                .append("\n\t\tTotal de descargar realizadas: " + getDescargas());
         return sb.toString();
     }
 }

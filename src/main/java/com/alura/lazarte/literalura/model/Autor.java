@@ -2,8 +2,6 @@ package com.alura.lazarte.literalura.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "autor")
 public class Autor {
@@ -66,13 +64,11 @@ public class Autor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Autor{");
-        sb.append("id=").append(id);
-        sb.append(", nombre='").append(nombre).append('\'');
-        sb.append(", fechaNacimiento=").append(fechaNacimiento);
-        sb.append(", fechaFallecimiento=").append(fechaFallecimiento);
-        sb.append(", libro=").append(libro);
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder();
+        sb.append("\n-------------- " + getLibro().getTitulo() + " --------------")
+                .append("\n\t\tNombre del autor: " + getNombre())
+                .append("\n\t\tFecha Nacimiento: " + getFechaNacimiento())
+                .append("\n\t\tFecha de fallecimiento: " + getFechaFallecimiento());
         return sb.toString();
     }
 }
